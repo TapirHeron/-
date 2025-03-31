@@ -22,5 +22,6 @@ public interface IUserService {
     /*
     *
     * */
-    boolean Login(UserDto userDto);
+    User Login(UserDto userDto);
+    String generateToken(User user);
 }
