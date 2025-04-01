@@ -1,0 +1,256 @@
+/* 基础样式 */
+:root {
+    --primary-color: #6C9BCF;
+    --secondary-color: #AAD8D3;
+    --success-color: #7DCEA0;
+    --error-color: #FF9B9B;
+    --text-color: #2E4C6D;
+}
+
+body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #E8F6EF 0%, #F8F6F4 100%);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* 粒子背景动画 */
+.particles {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, var(--primary-color) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: particles 60s linear infinite;
+}
+
+@keyframes particles {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 1000px; }
+}
+
+.login-container {
+    position: relative;
+    background: rgba(255, 255, 255, 0.98);
+    padding: 40px 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    width: 450px;
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+    animation: containerEntrance 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+    backdrop-filter: blur(12px);
+}
+
+@keyframes containerEntrance {
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.welcome-box {
+    text-align: center;
+    margin-bottom: 40px;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeSlide 0.6s 0.5s forwards;
+}
+
+h1 {
+    color: var(--text-color);
+    font-size: 32px;
+    margin: 0 0 10px;
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--primary-color);
+    clip-path: inset(0 100% 0 0);
+    animation: textReveal 1.2s 0.8s ease-out forwards;
+}
+
+@keyframes textReveal {
+    to { clip-path: inset(0 0 0 0); }
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: inputEntrance 0.6s forwards;
+}
+
+@keyframes inputEntrance {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+input {
+    width: 85%;
+    padding: 18px 25px;
+    font-size: 16px;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 6px 15px rgba(108, 155, 207, 0.2);
+    padding-left: 30px;
+}
+
+label {
+    position: absolute;
+    left: 25px;
+    top: 18px;
+    color: #909090;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+input:focus + label,
+input:valid + label {
+    top: -8px;
+    left: 20px;
+    font-size: 13px;
+    color: var(--primary-color);
+    background: white;
+    padding: 0 5px;
+}
+
+.input-hint {
+    display: block;
+    font-size: 13px;
+    color: #A0A0A0;
+    margin-top: 8px;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+input:focus ~ .input-hint {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.login-btn {
+    position: relative;
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(108, 155, 207, 0.3);
+}
+
+.btn-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    opacity: 0;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 消息提示 */
+.message-box {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    display: none;
+    align-items: center;
+    animation: messagePop 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.error {
+    background: rgba(255, 155, 155, 0.15);
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+.success-message {
+    /* 初始隐藏状态 */
+    display: none; 
+    position: fixed;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--success-color);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 30px;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(125, 206, 160, 0.3);
+}
+
+/* 添加动画控制类 */
+.success-message.show {
+    animation: successSlide 3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes successSlide {
+    10%, 90% { top: 30px; }
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark__check {
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+}
+
+@keyframes stroke {
+    to { stroke-dashoffset: 0; }
+}
+
+/* 加载状态 */
+.loading .btn-text { opacity: 0; }
+.loading .btn-loader { opacity: 1; }

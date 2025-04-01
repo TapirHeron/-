@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户登录</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+    <!-- 背景粒子动画 -->
+    <div class="particles"></div>
+    
+    <!-- 成功提示 -->
+    <div class="success-message" id="success-message" style="display: none;">
+        <svg class="checkmark" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+        <span>登录成功！</span>
+    </div>
+
+    <div class="login-container">
+        <div class="welcome-box">
+            <h1 data-text="欢迎回来">欢迎回来</h1>
+            <p>欢迎使用谣言检测平台</p>
+        </div>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" id="username" name="username" required>
+                <label for="username">用户名</label>
+                <span class="input-hint">至少4个字符</span>
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="password" name="password" required>
+                <label for="password">密码</label>
+                <span class="input-hint">至少6位字符</span>
+            </div>
+
+            <button type="button" class="login-btn" onclick="login()">
+                <span class="btn-text">立即登录</span>
+                <div class="btn-loader"></div>
+            </button>
+
+            <div class="message-box error" id="error-message">
+                <svg class="icon" viewBox="0 0 24 24">
+                    <path d="M11 15h2v2h-2zm0-8h2v6h-2zm1-5C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                </svg>
+                <span class="message-text"></span>
+            </div>
+        </form>
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>

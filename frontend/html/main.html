@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>谣言检测中心</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 侧边导航 -->
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fas fa-shield-virus"></i>
+            <span>真相卫士</span>
+        </div>
+        <ul class="nav-menu">
+            <li class="active"><a href="#"><i class="fas fa-home"></i> 检测中心</a></li>
+            <li><a href="#"><i class="fas fa-history"></i> 历史记录</a></li>
+            <li><a href="#"><i class="fas fa-chart-pie"></i> 数据分析</a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> 系统设置</a></li>
+        </ul>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="content">
+        <!-- 顶部栏 -->
+        <header class="topbar">
+            <div class="search-box">
+                <input type="text" placeholder="快速搜索检测记录...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="user-profile">
+                <img src="avatar.png" alt="用户头像">
+                <span>欢迎回来，管理员</span>
+            </div>
+        </header>
+
+        <!-- 核心功能卡片 -->
+        <div class="dashboard-grid">
+            <!-- 快速检测区 -->
+            <section class="card detection-card">
+                <h2><i class="fas fa-search-plus"></i> 快速检测</h2>
+                <div class="detection-options">
+                    <div class="option-box" onclick="startTextDetection()">
+                        <div class="icon-circle">
+                            <i class="fas fa-font"></i>
+                        </div>
+                        <span>文本检测</span>
+                    </div>
+                    <div class="option-box" onclick="startLinkDetection()">
+                        <div class="icon-circle">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <span>链接检测</span>
+                    </div>
+                </div>
+                <div class="detection-input">
+                    <textarea id="detectContent" placeholder="请输入需要检测的文本或链接..."></textarea>
+                    <button class="analysis-btn" onclick="analyzeContent()">
+                        <span>立即分析</span>
+                        <div class="wave-loader"></div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 数据统计 瞎写的-->
+            <section class="card stats-card">
+                <h2><i class="fas fa-chart-line"></i> 本月统计</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon danger">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>谣言数量</h3>
+                            <p>248 条</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>准确率</h3>
+                            <p>93.6%</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>可疑内容</h3>
+                            <p>47 条</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="detectionChart"></canvas>
+                </div>
+            </section>
+
+            <!-- 最近检测 瞎写的-->
+            <section class="card history-card">
+                <h2><i class="fas fa-clock"></i> 最近检测</h2>
+                <div class="history-list">
+                    <div class="history-item">
+                        <div class="result-tag success">已验证</div>
+                        <div class="content-preview">近期网传的疫苗副作用信息...</div>
+                        <div class="history-meta">
+                            <span><i class="fas fa-clock"></i> 2小时前</span>
+                            <button class="detail-btn">查看详情</button>
+                        </div>
+                    </div>
+                    <!-- 更多历史项... -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
