@@ -23,7 +23,7 @@ body {
 /* 侧边导航 */
 .sidebar {
     background: rgba(255, 255, 255, 0.85); /* 增加透明度减少背景干扰 */
-    backdrop-filter: blur(8px); /* 降低模糊度，使侧边栏不至于过于模糊 */
+    backdrop-filter: blur(8px); 
     padding: 30px 20px;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1); /* 更柔和的阴影 */
     position: fixed;
@@ -54,7 +54,7 @@ body {
 }
 
 .nav-menu li.active {
-    background: rgba(91, 143, 249, 0.15); /* 增加透明度，以便提供更好的可读性 */
+    background: rgba(91, 143, 249, 0.15); 
     color: var(--primary-color);
 }
 
