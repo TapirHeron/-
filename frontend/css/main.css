@@ -23,7 +23,7 @@ body {
 /* 侧边导航 */
 .sidebar {
     background: rgba(255, 255, 255, 0.85); /* 增加透明度减少背景干扰 */
-    backdrop-filter: blur(8px); 
+    backdrop-filter: blur(8px); /* 降低模糊度，使侧边栏不至于过于模糊 */
     padding: 30px 20px;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1); /* 更柔和的阴影 */
     position: fixed;
@@ -54,8 +54,8 @@ body {
 }
 
 .nav-menu li.active {
-    background: rgba(91, 143, 249, 0.15); 
-    color: var(--primary-color);
+    background: rgba(91, 143, 249, 0.15); /* 增加透明度，以便提供更好的可读性 */
+    color: white;
 }
 
 .nav-menu li:hover {
@@ -80,7 +80,19 @@ body {
     flex-wrap: wrap;
     gap: 20px;
 }
-
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.user-profile img{
+    margin-left: 40px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: #2E4C6D 0 5px 5px;
+}
 .search-box {
     position: relative;
     flex: 1;
@@ -91,6 +103,7 @@ body {
 .search-box input {
     position: relative;
     width: 100%; /* 确保输入框填满父容器 */
+    margin-left: 50px;
     padding: 12px 45px 12px 20px;
     border: 2px solid #E0E0E0;
     border-radius: 25px;
@@ -100,8 +113,8 @@ body {
 
 .search-box i {
     position: absolute;
-    right: 20px;
-    top: 50%;
+    right: -20px;
+    top: 30%;
     transform: translateY(-50%);
     color: #999;
 }
@@ -383,4 +396,13 @@ body {
     .option-box {
         min-width: 100%;
     }
+}
+.detail-btn {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 12px;
+    margin-top: 20px;
 }

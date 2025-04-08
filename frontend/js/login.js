@@ -1,4 +1,5 @@
 // login.js
+const rootIp = 'localhost';
 async function login() {
     const btn = document.querySelector('.login-btn');
     btn.classList.add('loading');
@@ -20,18 +21,17 @@ async function login() {
             return;
         }
 
-        const response = await fetch('http://localhost:8001/user/login', {
+        const response = await fetch('http://' + rootIp + ':8080/user/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userName: username, userPassword: password })
         });
 
         const data = await response.json();
-
         if (response.ok) {
             showSuccess();
-            localStorage.setItem('token', data.data.token);
-            setTimeout(() => window.location.href = '/home', 1500);
+            // localStorage.setItem('token', data.data.token);
+            setTimeout(() => window.location.href = '../html/main.html', 1500);
         } else {
             showError(data.message || '验证失败，请检查输入');
         }

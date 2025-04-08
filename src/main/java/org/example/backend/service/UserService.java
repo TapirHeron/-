@@ -32,64 +32,10 @@ public class UserService implements IUserService {
 
 
     @Override
-    public User add(UserDto userDto) {
-        User user = new User();
-        BeanUtils.copyProperties(userDto,user);
-        user.setUserPassword(BCrypt.hashpw(userDto.getUserPassword(), BCrypt.gensalt()));
-        System.out.println("存储的用户：" + user);
-        userRepository.save(user);
-        return user;
-    }
-
-    @Override
-    @Transactional
-    public User update(Integer userId, UserDto userDto) {
-        if (userRepository.existsById(userId)) {
-            // 从数据库中获取最新的实体对象
-            User existingUser = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with ID: " + userId));
-
-            // 手动复制可更新的字段，避免覆盖 id 和 version
-            if (userDto.getUserName() != null) {
-                existingUser.setUserName(userDto.getUserName());
-            }
-            if (userDto.getUserEmail() != null) {
-                existingUser.setUserEmail(userDto.getUserEmail());
-            }
-
-            // 保存更新后的实体
-            return userRepository.save(existingUser);
-        } else {
-            throw new EntityNotFoundException("User not found with ID: " + userId);
-        }
-    }
-
-    @Override
-    public User delete(Integer userId) {
-        if (userRepository.existsById(userId)) {
-            User user = userRepository.findById(userId).get();
-            userRepository.deleteById(userId);
-            return user;
-        }
-        return null;
-    }
-
-    @Override
-    public User getUser(Integer userId) {
-        if (userRepository.existsById(userId)) {
-            User user = userRepository.findById(userId).get();
-            return user;
-        }
-        return null;
-    }
-    @Override
     public User Login(UserDto userDto) {
-        User user = userRepository.findByUserName(userDto.getUserName());
-        if (user != null) {
-            if (BCrypt.checkpw(userDto.getUserPassword(), user.getUserPassword())) {
-                return user;
-            }
-        }
-        return null;
+      return userRepository.findByUserName(userDto.getUserName())
+              .filter(user -> BCrypt.checkpw(userDto.getUserPassword(), user.getUserPassword()))
+              .orElse(null);
     }
 
     @Override
@@ -105,5 +51,15 @@ public class UserService implements IUserService {
                 .setExpiration(expirationDate) // 设置过期时间
                 .signWith(SignatureAlgorithm.HS512, jwtSecret) // 使用HS512算法和密钥生成签名
                 .compact(); // 生成JWT
+    }
+
+    @Override
+    public boolean save(User user) {
+        user.setUserPassword(BCrypt.hashpw(user.getUserPassword(), BCrypt.gensalt()));
+        if (userRepository.findByUserName(user.getUserName()).isPresent()) {
+            return false;
+        }
+        userRepository.save(user);
+        return true;
     }
 }

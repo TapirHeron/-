@@ -1,4 +1,5 @@
 // 初始化图表
+const rootIp = 'localhost';
 function initChart() {
     const ctx = document.getElementById('detectionChart').getContext('2d');
     new Chart(ctx, {
