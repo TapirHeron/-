@@ -3,7 +3,7 @@ package org.example.backend.pojo.Response;
 import org.example.backend.pojo.User;
 import org.springframework.http.HttpStatus;
 
-public class ResponseMessage<T> {
+public class ResponseMessage<T>{
 
     private Integer status;
     private String message;
@@ -48,4 +48,5 @@ public class ResponseMessage<T> {
     public static <T> ResponseMessage<T> error(Integer status, String message) {
         return new ResponseMessage<>(status, message, null);
     }
+
 }

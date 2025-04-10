@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private IUserService userService;
-    private User curentUser;
+    private static User curentUser;
+
+    public static User getCurrentUser() {
+        return curentUser;
+    }
+
     // 登录
     @PostMapping("/login")
     public ResponseMessage<User> login(@RequestBody UserDto userDto) {
@@ -37,9 +42,10 @@ public class UserController {
     public ResponseMessage<User> Register(@RequestBody UserDto userDto) {
         User user = new User(userDto.getUserName(), userDto.getUserEmail(), userDto.getUserPassword());
         if (userService.save(user)) {
+            curentUser = user;
             return ResponseMessage.success(user);
         }
-        return ResponseMessage.error(404, "用户不存在");
+        return ResponseMessage.error(404, "注册失败");
     }
     // 登陆成功时返回的用户信息及JWT令牌
     public static class LoginResponse {
