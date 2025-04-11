@@ -48,15 +48,29 @@
                         </div>
                         <span>文本检测</span>
                     </div>
-                    <div class="option-box" onclick="startLinkDetection()">
+                    <div class="option-box" onclick="startPictureDetection()">
                         <div class="icon-circle">
-                            <i class="fas fa-link"></i>
+                            <i class="fas fa-image"></i>
                         </div>
-                        <span>链接检测</span>
+                        <span>图片检测</span>
                     </div>
                 </div>
                 <div class="detection-input">
-                    <textarea id="detectContent" placeholder="请输入需要检测的文本或链接..."></textarea>
+                    <textarea id="detectContent" placeholder="请输入需要检测的文本..." style="display: block;"></textarea>
+
+                    <!-- 图片上传区域 (默认隐藏) -->
+                    <div id="imageUploadArea" style="display: none;">
+                        <input type="file" id="imageInput" accept="image/*" hidden>
+                        <label for="imageInput" class="upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>点击选择图片或拖拽到此区域</span>
+                        </label>
+                        <div id="imagePreview"></div>
+                    </div>
+
+                    <!-- 错误提示 -->
+                    <div id="errorMessage" class="error-message"></div>
+
                     <button class="analysis-btn" onclick="analyzeContent()">
                         <span>立即分析</span>
                         <div class="wave-loader"></div>

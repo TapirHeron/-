@@ -256,6 +256,62 @@ body {
     animation: wave 1.5s infinite;
 }
 
+/* 图片上传区域 */
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.upload-label:hover {
+    border-color: var(--primary-color);
+}
+
+.upload-label i {
+    font-size: 2.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* 图片预览 */
+.preview-container {
+    position: relative;
+    margin-top: 1rem;
+    max-width: 300px;
+}
+
+.preview-container img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.remove-btn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--danger-color);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.error-message {
+    color: var(--danger-color);
+    margin: 0.5rem 0;
+    display: none;
+}
+
 @keyframes wave {
     to { left: 100%; }
 }
