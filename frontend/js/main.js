@@ -113,64 +113,37 @@ async function analyzeContent() {
     const text = document.getElementById('detectContent').value.trim();
     const hasImage = !!selectedFile;
 
-    clearError(); // 清除之前的错误提示
-  
+    clearError();
+
     // 输入验证
     let errorMsg = '';
     if (!text && !hasImage) {
-      errorMsg = '请同时输入检测文本并上传图片';
+        errorMsg = '请同时输入检测文本并上传图片';
     } else if (!text) {
-      errorMsg = '请输入需要检测的文本内容';
+        errorMsg = '请输入需要检测的文本内容';
     } else if (!hasImage) {
-      errorMsg = '请上传需要检测的图片';
+        errorMsg = '请上传需要检测的图片';
     }
-  
+
     if (errorMsg) {
-      showError(errorMsg);
-      return;
-    }
-    
-    // 输入验证
-    if (currentDetectionType === 'text') {
-        const text = document.getElementById('detectContent').value.trim();
-        if (!text) {
-            showError('请输入需要检测的文本');
-            return;
-        }
-    } else if (!selectedFile) {
-        showError('请选择需要检测的图片');
+        showError(errorMsg);
         return;
     }
 
-    // 禁用按钮
     btn.disabled = true;
     btn.querySelector('.wave-loader').style.display = 'block';
-    errorEl.style.display = 'none';
 
     try {
-        let response;
-        if (currentDetectionType === 'text') {
-            // 文本检测请求
-            response = await fetch(`http://${rootIp}:8080/api/text-analysis`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    content: document.getElementById('detectContent').value
-                })
-            });
-        } else {
-            // 图片检测请求
-            const formData = new FormData();
-            formData.append('image', selectedFile);
-            
-            response = await fetch(`http://${rootIp}:8080/api/image-analysis`, {
-                method: 'POST',
-                body: formData
-            });
-        }
+        const formData = new FormData();
+        formData.append('text', text);
+        formData.append('image', selectedFile);
+
+        const response = await fetch(`http://${rootIp}:8080/api/unified-analysis`, {
+            method: 'POST',
+            body: formData
+        });
 
         if (!response.ok) throw new Error(`HTTP错误: ${response.status}`);
-        
         const result = await response.json();
         showResultModal(result);
     } catch (error) {
