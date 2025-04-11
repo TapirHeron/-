@@ -111,17 +111,18 @@ async function analyzeContent() {
     const btn = document.querySelector('.analysis-btn');
     const errorEl = document.getElementById('errorMessage');
     const text = document.getElementById('detectContent').value.trim();
-    const hasImage = !!selectedFile;
+    const fileInput = document.getElementById('imageInput');
+    const file = fileInput.files[0];
 
     clearError();
 
     // 输入验证
     let errorMsg = '';
-    if (!text && !hasImage) {
+    if (!text && !file) {
         errorMsg = '请同时输入检测文本并上传图片';
     } else if (!text) {
         errorMsg = '请输入需要检测的文本内容';
-    } else if (!hasImage) {
+    } else if (!file) {
         errorMsg = '请上传需要检测的图片';
     }
 
@@ -136,14 +137,16 @@ async function analyzeContent() {
     try {
         const formData = new FormData();
         formData.append('text', text);
-        formData.append('image', selectedFile);
+        formData.append('image', file);
 
-        const response = await fetch(`http://${rootIp}:8080/api/unified-analysis`, {
+        const response = await fetch(`http://${rootIp}/data/uploadData`, {
             method: 'POST',
             body: formData
         });
 
-        if (!response.ok) throw new Error(`HTTP错误: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`HTTP错误: ${response.status}`);
+        }
         const result = await response.json();
         showResultModal(result);
     } catch (error) {
@@ -167,3 +170,4 @@ function clearError() {
     errorEl.style.display = 'none';
     errorEl.textContent = '';
 }
+    
