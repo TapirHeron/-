@@ -24,23 +24,18 @@ function initChart() {
     });
 }
 
-let currentDetectionType = 'text'; // 当前检测类型：text/image
 let selectedFile = null; // 存储选中的文件
 
-// 检测功能
-function startTextDetection() {
-    currentDetectionType = 'text';
-    document.getElementById('detectContent').style.display = 'block';
-    document.getElementById('imageUploadArea').style.display = 'none';
-    clearFileSelection();
-}
+// 初始化
+document.addEventListener('DOMContentLoaded', () => {
+    initChart();
+    setupDragAndDrop(); 
+    // 卡片入场动画
+    document.querySelectorAll('.card').forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+});
 
-function startPictureDetection() {
-    currentDetectionType = 'image';
-    document.getElementById('detectContent').style.display = 'none';
-    document.getElementById('imageUploadArea').style.display = 'block';
-    setupDragAndDrop();
-}
 
 // 新增文件处理函数
 function setupDragAndDrop() {
@@ -115,6 +110,25 @@ function clearFileSelection() {
 async function analyzeContent() {
     const btn = document.querySelector('.analysis-btn');
     const errorEl = document.getElementById('errorMessage');
+    const text = document.getElementById('detectContent').value.trim();
+    const hasImage = !!selectedFile;
+
+    clearError(); // 清除之前的错误提示
+  
+    // 输入验证
+    let errorMsg = '';
+    if (!text && !hasImage) {
+      errorMsg = '请同时输入检测文本并上传图片';
+    } else if (!text) {
+      errorMsg = '请输入需要检测的文本内容';
+    } else if (!hasImage) {
+      errorMsg = '请上传需要检测的图片';
+    }
+  
+    if (errorMsg) {
+      showError(errorMsg);
+      return;
+    }
     
     // 输入验证
     if (currentDetectionType === 'text') {
@@ -168,18 +182,15 @@ async function analyzeContent() {
 }
 
 
-// 初始化
-document.addEventListener('DOMContentLoaded', () => {
-    initChart();
-    // 卡片入场动画
-    document.querySelectorAll('.card').forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.1}s`;
-    });
-});
-
 // 错误提示
 function showError(message) {
     const errorEl = document.getElementById('errorMessage');
     errorEl.textContent = message;
     errorEl.style.display = 'block';
+}
+
+function clearError() {
+    const errorEl = document.getElementById('errorMessage');
+    errorEl.style.display = 'none';
+    errorEl.textContent = '';
 }

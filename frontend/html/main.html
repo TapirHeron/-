@@ -42,38 +42,28 @@
             <section class="card detection-card">
                 <h2><i class="fas fa-search-plus"></i> 快速检测</h2>
                 <div class="detection-options">
-                    <div class="option-box" onclick="startTextDetection()">
-                        <div class="icon-circle">
-                            <i class="fas fa-font"></i>
-                        </div>
-                        <span>文本检测</span>
-                    </div>
-                    <div class="option-box" onclick="startPictureDetection()">
-                        <div class="icon-circle">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <span>图片检测</span>
-                    </div>
+                    
                 </div>
+                <!-- 修改检测输入区域 -->
                 <div class="detection-input">
-                    <textarea id="detectContent" placeholder="请输入需要检测的文本..." style="display: block;"></textarea>
-
-                    <!-- 图片上传区域 (默认隐藏) -->
-                    <div id="imageUploadArea" style="display: none;">
-                        <input type="file" id="imageInput" accept="image/*" hidden>
-                        <label for="imageInput" class="upload-label">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <span>点击选择图片或拖拽到此区域</span>
-                        </label>
-                        <div id="imagePreview"></div>
+                    <textarea id="detectContent" placeholder="请输入需要检测的文本..."></textarea>
+                    
+                    <!-- 图片上传区域改为常显 -->
+                    <div id="imageUploadArea">
+                    <input type="file" id="imageInput" accept="image/*" hidden>
+                    <label for="imageInput" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>点击选择需要检测的图片</span>
+                    </label>
+                    <div id="imagePreview"></div>
                     </div>
-
+                
                     <!-- 错误提示 -->
                     <div id="errorMessage" class="error-message"></div>
-
+                
                     <button class="analysis-btn" onclick="analyzeContent()">
-                        <span>立即分析</span>
-                        <div class="wave-loader"></div>
+                    <span>立即分析</span>
+                    <div class="wave-loader"></div>
                     </button>
                 </div>
             </section>

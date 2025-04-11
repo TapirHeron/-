@@ -166,14 +166,6 @@ body {
     min-height: 400px;
 }
 
-/* 检测功能区 */
-.detection-options {
-    display: flex;
-    gap: 30px;
-    margin: 25px 0;
-    flex-wrap: wrap;
-}
-
 .option-box {
     text-align: center;
     padding: 20px;
@@ -203,10 +195,9 @@ body {
 }
 
 .detection-input {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+    display: grid;
+    gap: 25px;
+  }
 
 /* 输入检测区 */
 .detection-input textarea {
@@ -277,6 +268,10 @@ body {
     color: var(--text-secondary);
     margin-bottom: 1rem;
 }
+
+#imageUploadArea {
+    margin-top: 15px;
+  }
 
 /* 图片预览 */
 .preview-container {
@@ -422,15 +417,6 @@ body {
 
     .search-box {
         min-width: 100%;
-    }
-
-    .detection-options {
-        display: flex;
-        gap: 30px;
-        margin: 25px 0;
-        flex-wrap: wrap;
-        justify-content: flex-start; /* 确保这些项对齐 */
-        align-items: center; /* 保持垂直居中 */
     }
 
     .stats-grid {
