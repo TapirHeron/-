@@ -16,7 +16,7 @@ public class UserTransData {
     @Column(name = "user_id")
     private Integer userId;
     @Column(name = "image")
-    private String image;
+    private String image; // 保存为传的图片的路径
     @Column(name = "text")
     private String text;
 
