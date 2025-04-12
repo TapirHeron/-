@@ -31,7 +31,7 @@ async function login() {
         if (response.ok) {
             showSuccess();
             // localStorage.setItem('token', data.data.token);
-            setTimeout(() => window.location.href = '../html/main.html', 1500);
+            setTimeout(() => window.location.href = '../html/main.html', 500);
         } else {
             showError(data.message || '验证失败，请检查输入');
         }

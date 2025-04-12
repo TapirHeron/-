@@ -25,6 +25,14 @@ public class User {
         this.userName = userName;
         this.userEmail = userEmail;
     }
+
+    public User(Integer userId, String userName, String userPassword, String userEmail) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userEmail = userEmail;
+    }
+
     public User() {
     }
     @Override

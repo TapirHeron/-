@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private IUserService userService;
-    private static User curentUser;
+    private static User curentUser; // =  new User(1,"小王", "1948710271@qq.com", "$2a$10$MkRdn53kvAjPRZMab5QrlucAuwjsksGrNOWrhbb1L/NB0LAsiUDBO");
 
     public static User getCurrentUser() {
         return curentUser;
@@ -27,9 +27,10 @@ public class UserController {
         User user = userService.Login(userDto);
         if (user != null) {
             // 如果登陆成功，返回用户信息及JWT令牌
-            String token = userService.generateToken(user);
+//            String token = userService.generateToken(user);
             curentUser = user;
-            return ResponseMessage.success(new LoginResponse(user, token).getUser());
+            System.out.println("当前正在登录的用户:" + curentUser);
+            return ResponseMessage.success(new LoginResponse(user).getUser());
         }
         return ResponseMessage.error(404, "用户不存在");
 //        if (userService.Login(userDto)) {
@@ -54,9 +55,8 @@ public class UserController {
         private User user;
         private String token;
 
-        public LoginResponse(User user, String token) {
+        public LoginResponse(User user) {
             this.user = user;
-            this.token = token;
         }
 
         public User getUser() {

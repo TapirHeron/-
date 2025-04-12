@@ -1,19 +1,15 @@
 package org.example.backend.controller;
 
 import jakarta.validation.constraints.NotNull;
-import org.example.backend.pojo.Dto.UserTransDataDto;
 import org.example.backend.pojo.Response.AnalysisResponse;
 import org.example.backend.pojo.UserTransData;
 import org.example.backend.service.IDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -22,10 +18,11 @@ public class DataController {
     @Autowired
     private IDataService dataService;
     @RequestMapping("/uploadData")
-    public AnalysisResponse uploadData(@RequestBody UserTransDataDto userTransDataDto) throws Exception {
-        String imagePath = storeFile(userTransDataDto.getImage());
-        UserTransData userTransData = new UserTransData(UserController.getCurrentUser().getUserId(), imagePath, userTransDataDto.getText());
-        return dataService.saveAndAnalysis(userTransData, userTransDataDto);
+    public AnalysisResponse uploadData(@RequestPart("image") MultipartFile image, @RequestParam("text") String text) throws Exception {
+        System.out.println("userTransData: " + image + "text: " + text);
+        String imagePath = storeFile(image);
+        UserTransData userTransData = new UserTransData(UserController.getCurrentUser().getUserId(), imagePath, text);
+        return dataService.saveAndAnalysis(userTransData, image);
     }
 
     private String storeFile(@NotNull(message = "图像不能为空") MultipartFile file) {
@@ -35,8 +32,7 @@ public class DataController {
 
         // 指定存储目录
         try {
-            String uploadDir = "../../../../../resources/images";
-            System.out.println("uploadDir: " + uploadDir);
+            String uploadDir = String.valueOf(Paths.get("src/main/resources/images/").toAbsolutePath());
             File dir = new File(uploadDir);
             if (!dir.exists()) {
                 dir.mkdirs();
@@ -44,8 +40,8 @@ public class DataController {
 
             // 生成唯一文件名
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            String filePath = uploadDir + fileName;
-
+            String filePath = uploadDir + "\\" +fileName;
+            System.out.println("fileName:" + fileName + "\nfilePath:" + filePath);
             // 存储文件
             file.transferTo(new File(filePath));
 

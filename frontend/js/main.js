@@ -138,8 +138,11 @@ async function analyzeContent() {
         const formData = new FormData();
         formData.append('text', text);
         formData.append('image', file);
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
 
-        const response = await fetch(`http://${rootIp}/data/uploadData`, {
+        const response = await fetch(`http://${rootIp}:8080/data/uploadData`, {
             method: 'POST',
             body: formData
         });
