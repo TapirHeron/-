@@ -87,8 +87,8 @@ body {
 }
 .user-profile img{
     margin-left: 40px;
-    width: 50px;
-    height: 50px;
+    width: 90px;
+    height: 90px;
     object-fit: cover;
     border-radius: 50%;
     box-shadow: #2E4C6D 0 5px 5px;
