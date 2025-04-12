@@ -32,6 +32,7 @@ public class UserController {
             System.out.println("当前正在登录的用户:" + curentUser);
             return ResponseMessage.success(new LoginResponse(user).getUser());
         }
+        System.out.println("用户不存在");
         return ResponseMessage.error(404, "用户不存在");
 //        if (userService.Login(userDto)) {
 //            User user = null;

@@ -30,12 +30,16 @@ public class UserService implements IUserService {
     //Jwt有效期
     private long jwtExpirationMs = 3600000; // 1 hour
 
-
     @Override
     public User Login(UserDto userDto) {
-      return userRepository.findByUserName(userDto.getUserName())
-              .filter(user -> BCrypt.checkpw(userDto.getUserPassword(), user.getUserPassword()))
-              .orElse(null);
+        Optional<User> optionalUser = userRepository.findByUserName(userDto.getUserName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (BCrypt.checkpw(userDto.getUserPassword(), user.getUserPassword())) {
+                return user;
+            }
+        }
+        return null; // 返回 null 表示登录失败
     }
 
     @Override
