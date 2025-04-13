@@ -25,6 +25,7 @@ public class DataService implements IDataService {
         dataRepository.save(userTransData);
         return analysis(userTransData, image);
     }
+    // 调用大模型服务
     private AnalysisResponse analysis(UserTransData userTransData, MultipartFile image) throws Exception{
         String text = userTransData.getText();
         String url = "http://localhost:8081/upload";

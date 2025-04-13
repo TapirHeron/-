@@ -1,45 +1,45 @@
 // login.js
 const rootIp = 'localhost';
 async function login() {
-    const btn = document.querySelector('.login-btn');
-    btn.classList.add('loading');
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const errorMessage = document.getElementById('error-message');
+        const btn = document.querySelector('.login-btn');
+        btn.classList.add('loading');
 
-    // 清除状态
-    errorMessage.style.display = 'none';
-    document.querySelectorAll('input').forEach(i => i.style.borderColor = '#E0E0E0');
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('error-message');
 
-    try {
-        // 模拟网络延迟
-        await new Promise(resolve => setTimeout(resolve, 800));
+        // 清除状态
+        errorMessage.style.display = 'none';
+        document.querySelectorAll('input').forEach(i => i.style.borderColor = '#E0E0E0');
 
-        if (!username || !password) {
-            showError('请填写完整登录信息！');
-            return;
+        try {
+
+            if (!username || !password) {
+                showError('请填写完整登录信息！');
+                return;
+            }
+
+            const response = await fetch('http://' + rootIp + ':8080/user/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userName: username,
+                    userPassword: password
+                })
+            });
+            console.log("已执行");
+            const data = await response.json();
+            console.log(data)
+            if (data.status === 200) {
+                window.location.href = '../html/main.html';
+            } else {
+                showError(data.message);
+            }
+        } catch (error) {
+            showError('登录失败，请检查用户名或密码！');
+        } finally {
+            btn.classList.remove('loading');
         }
-
-        const response = await fetch('http://' + rootIp + ':8080/user/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userName: username, userPassword: password })
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            showSuccess();
-            // localStorage.setItem('token', data.data.token);
-            setTimeout(() => window.location.href = '../html/main.html', 500);
-        } else {
-            showError(data.message || '验证失败，请检查输入');
-        }
-    } catch (error) {
-        showError('网络连接异常，请稍后重试');
-    } finally {
-        btn.classList.remove('loading');
-    }
 }
 
 function showError(message) {

@@ -48,7 +48,7 @@ public class UserController {
             curentUser = user;
             return ResponseMessage.success(user);
         }
-        return ResponseMessage.error(404, "注册失败");
+        return ResponseMessage.error(404, "用户名重复");
     }
     // 登陆成功时返回的用户信息及JWT令牌
     public static class LoginResponse {

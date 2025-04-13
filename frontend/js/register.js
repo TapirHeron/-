@@ -29,7 +29,7 @@ async function register() {
         });
 
         const data = await response.json();
-        if (response.ok) {
+        if (data.status === 200) {
             showSuccess();
             // localStorage.setItem('token', data.data.token);
             setTimeout(() => window.location.href = '../html/main.html', 500);
