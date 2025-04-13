@@ -57,7 +57,7 @@ body {
     text-align: center;
     margin-bottom: 40px;
     transform: translateY(20px);
-    opacity: 0;
+    opacity: 1;
     animation: fadeSlide 0.6s 0.5s forwards;
 }
 

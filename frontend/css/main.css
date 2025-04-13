@@ -94,7 +94,7 @@ body {
     box-shadow: #2E4C6D 0 5px 5px;
 }
 .search-box {
-    position: relative;
+    position: center;
     flex: 1;
     width: 100%; /* 让输入框的宽度自适应父容器 */
     max-width: 600px; /* 限制最大宽度，避免过宽 */
@@ -127,6 +127,7 @@ body {
     max-width: 1600px;
     margin: 0 auto;
     padding: 20px 0;
+    margin-left: 50px; /* 侧边栏宽度补偿 */
 }
 
 /* 卡片通用样式 */
