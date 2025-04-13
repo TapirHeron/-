@@ -37,6 +37,8 @@ public class UserService implements IUserService {
             User user = optionalUser.get();
             if (BCrypt.checkpw(userDto.getUserPassword(), user.getUserPassword())) {
                 return user;
+            } else {
+                return new User(user.getUserName(), user.getUserEmail(), "密码错误");
             }
         }
         return null; // 返回 null 表示登录失败

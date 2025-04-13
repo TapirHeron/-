@@ -20,6 +20,9 @@ async function register() {
         if (!username || !password) {
             showError('请填写完整登录信息！');
             return;
+        } else if (username.length < 4 || password.length < 6 ) {
+            showError('用户名长度至少为3，密码长度至少为6！');
+            return;
         }
 
         const response = await fetch('http://' + rootIp + ':8080/user/register', {

@@ -28,9 +28,13 @@ public class UserController {
         if (user != null) {
             // 如果登陆成功，返回用户信息及JWT令牌
 //            String token = userService.generateToken(user);
-            curentUser = user;
-            System.out.println("当前正在登录的用户:" + curentUser);
-            return ResponseMessage.success(new LoginResponse(user).getUser());
+            if (user.getUserPassword().equals("密码错误")) {
+                return ResponseMessage.error(404, "密码错误");
+            } else {
+                curentUser = user;
+                System.out.println("当前正在登录的用户:" + curentUser);
+                return ResponseMessage.success(new LoginResponse(user).getUser());
+            }
         }
         System.out.println("用户不存在");
         return ResponseMessage.error(404, "用户不存在");

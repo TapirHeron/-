@@ -254,3 +254,13 @@ input:focus ~ .input-hint {
 /* 加载状态 */
 .loading .btn-text { opacity: 0; }
 .loading .btn-loader { opacity: 1; }
+.login-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--primary-color);
+    font-size: 14px;
+    transform: translateY(20px);
+    animation: fadeSlide 0.6s 0.5s forwards;
+    transition: all 0.3s ease;
+}
