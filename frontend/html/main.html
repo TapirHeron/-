@@ -41,14 +41,12 @@
             <!-- 快速检测区 -->
             <section class="card detection-card">
                 <h2><i class="fas fa-search-plus"></i> 快速检测</h2>
-                <div class="detection-options">
-                    
-                </div>
-                <!-- 修改检测输入区域 -->
+
+                <!-- 文本检测输入区域 -->
                 <div class="detection-input">
                     <textarea id="detectContent" placeholder="请输入需要检测的文本..."></textarea>
                     
-                    <!-- 图片上传区域改为常显 -->
+                    <!-- 图片上传区域 -->
                     <div id="imageUploadArea">
                     <input type="file" id="imageInput" accept="image/*" hidden>
                     <label for="imageInput" class="upload-label">
@@ -62,8 +60,8 @@
                     <div id="errorMessage" class="error-message"></div>
                 
                     <button class="analysis-btn" onclick="analyzeContent()">
-                    <span>立即分析</span>
-                    <div class="wave-loader"></div>
+                        <span>立即分析</span>
+                        <div class="wave-loader"></div>
                     </button>
                 </div>
             </section>
