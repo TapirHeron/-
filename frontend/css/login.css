@@ -76,7 +76,7 @@ h1::after {
     top: 0;
     color: var(--primary-color);
     clip-path: inset(0 100% 0 0);
-    animation: textReveal 1.2s 0.8s ease-out forwards;
+    animation: textReveal 0.9s 0.8s ease-out forwards;
 }
 
 @keyframes textReveal {
@@ -88,7 +88,7 @@ h1::after {
     margin-bottom: 30px;
     opacity: 0;
     transform: translateX(-30px);
-    animation: inputEntrance 0.6s 1s forwards;
+    animation: inputEntrance 0.6s 0.5s forwards;
 }
 
 @keyframes inputEntrance {

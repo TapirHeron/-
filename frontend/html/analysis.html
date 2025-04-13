@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据分析</title>
+    <link rel="stylesheet" href="../css/analysis.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<!-- 侧边导航 -->
+<nav class="sidebar">
+    <div class="logo">
+        <i class="fas fa-shield-virus"></i>
+        <span>真相卫士</span>
+    </div>
+    <ul class="nav-menu">
+        <li><a href="main.html"><i class="fas fa-home"></i> 检测中心</a></li>
+        <li><a href="#"><i class="fas fa-history"></i> 历史记录</a></li>
+        <li class="active"><a href="analysis.html"><i class="fas fa-chart-pie"></i> 数据分析</a></li>
+        <li><a href="#"><i class="fas fa-cog"></i> 系统设置</a></li>
+    </ul>
+</nav>
+
+<main class="content">
+    <div class="dashboard-grid">
+        <!-- 输入内容展示 -->
+        <section class="card input-review">
+            <h2><i class="fas fa-clipboard-check"></i> 输入内容核查</h2>
+            <div class="content-container">
+                <div class="text-preview">
+                    <h3>检测文本内容</h3>
+                    <div class="text-content" id="inputText"></div>
+                </div>
+                <div class="image-preview">
+                    <h3>上传图片预览</h3>
+                    <div class="image-container" id="inputImage"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 可视化分析结果 -->
+        <section class="card visualization-section">
+            <h2><i class="fas fa-chart-pie"></i> 可信度分析</h2>
+            <div class="chart-grid">
+                <div class="chart-container">
+                    <canvas id="confidenceChart"></canvas>
+                </div>
+                <div class="evidence-cloud">
+                    <h3>关键证据指标</h3>
+                    <div class="keywords-container" id="evidenceKeywords"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 详细分析结果 -->
+        <section class="card detailed-results">
+            <h2><i class="fas fa-file-alt"></i> 详细分析报告</h2>
+            <div class="result-grid">
+                <div class="verdict-summary">
+                    <div class="verdict-badge" id="verdictBadge"></div>
+                    <div class="confidence-meter">
+                        <div class="meter-bar" id="meterBar"></div>
+                        <span class="meter-text" id="meterText"></span>
+                    </div>
+                </div>
+                <div class="evidence-list">
+                    <h3><i class="fas fa-list-ul"></i> 分析依据</h3>
+                    <ul id="evidenceList"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="card tamper-analysis">
+            <h2><i class="fas fa-search-location"></i> 深度分析结果</h2>
+            <div class="analysis-grid">
+                <!-- 篡改类型检测 -->
+                <div class="tamper-types">
+                    <h3>篡改类型分析</h3>
+                    <div class="type-bars" id="multiclsBars"></div>
+                </div>
+
+                <!-- 图像定位可视化 -->
+                <div class="image-tamper">
+                    <h3>图像篡改定位</h3>
+                    <div class="image-wrapper" id="tamperOverlay"></div>
+                </div>
+
+                <!-- 文本篡改定位 -->
+                <div class="text-tamper">
+                    <h3>文本篡改定位</h3>
+                    <div class="highlighted-text" id="textTamper"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+    <script src="../js/analysis.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

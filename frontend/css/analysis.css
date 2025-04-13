@@ -1,0 +1,255 @@
+:root {
+    --primary-color: #5B8FF9;     /* 主色调，用于突出重点元素 */
+    --secondary-color: #6DD3CE;   /* 辅助色 */
+    --success-color: #7DCEA0;     /* 成功提示色 */
+    --warning-color: #FFC75F;     /* 警告色 */
+    --danger-color: #FF6B6B;      /* 危险提示色 */
+    --text-dark: #2E4C6D;         /* 深色文字 */
+    --text-light: #F6F6F6;        /* 浅色文字 */
+    --bg-gradient: linear-gradient(135deg, #F0F4FF 0%, #F8F9FF 100%); /* 背景渐变 */
+    --card-bg: #FFFFFF;
+    --surface-border: rgba(0, 0, 0, 0.08);
+    --hover-elevation: 0 6px 20px -6px rgba(0, 0, 0, 0.1);
+    --card-radius: 12px;
+    --content-spacing: 1.5rem;
+}
+
+/* 基础布局 */
+body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg-gradient);
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 侧边导航 */
+.sidebar {
+    background: rgba(255, 255, 255, 0.85); /* 增加透明度减少背景干扰 */
+    backdrop-filter: blur(8px); /* 降低模糊度，使侧边栏不至于过于模糊 */
+    padding: 30px 20px;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1); /* 更柔和的阴影 */
+    position: fixed;
+    height: 100vh;
+    width: 240px;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin: 12px 0;
+    padding: 14px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-menu li.active {
+    background: rgba(91, 143, 249, 0.15); /* 增加透明度，以便提供更好的可读性 */
+    color: white;
+}
+
+.nav-menu li:hover {
+    transform: translateX(8px);
+    background: rgba(91, 143, 249, 0.1);
+}
+
+/* Main content */
+/* 增强主体内容可读性 */
+.content {
+    padding: 2rem;
+    margin-left: 260px; /* 与侧边栏保持间距 */
+    width: calc(100% - 280px); /* 新增：计算可用宽度 */
+    max-width: 1600px; 
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+.dashboard-grid {
+    width: 100%;            /* 撑满内容区域 */
+    max-width: 1200px;      /* 控制内容密度 */
+    
+    /* 优化网格布局 */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem; /* 增大主间距 ★ 原值1.5rem */
+}
+
+/* 优化卡片视觉效果 */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: var(--hover-elevation);
+    padding: var(--content-spacing);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: visible; /* 允许阴影溢出 */
+    padding: 2rem;          /* 增大内间距 ★ 原值1.5rem */
+    margin-bottom: 1.5rem;  /* 添加底部间距 */
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* 增强数据可视化对比度 */
+.meter-bar {
+    height: 24px; /* 加粗进度条 */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* 统一内容容器样式 */
+.text-content, 
+.image-container, 
+.chart-container {
+    border: 1px solid var(--surface-border);
+    border-radius: 8px;
+    background: var(--card-bg); /* 使用卡片背景色 */
+    padding: var(--content-spacing);
+    transition: border-color 0.2s ease;
+}
+
+/* 优化证据云样式 */
+.evidence-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.evidence-cloud span {
+    background: rgba(109, 211, 206, 0.15);
+    color: var(--text-dark);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9em;
+    border: 1px solid rgba(109, 211, 206, 0.3);
+}
+
+.chart-grid,
+.analysis-grid,
+.result-grid {
+    gap: 1.5rem; /* 子网格间距 ★ 原值1rem */
+}
+
+/* 增强响应式布局 */
+@media (max-width: 768px) {
+    .content {
+        padding: 1.5rem;
+        margin-left: 200px; /* 保持与侧边栏修改后的宽度一致 */
+        width: calc(100% - 80px);
+        margin-left: 80px;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 1600px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    }
+}
+
+/* 添加微交互动画 */
+.verdict-badge {
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.verdict-badge:hover {
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* 优化排版层次 */
+.card h2 {
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+.card h2::after {
+    content: "";
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+/*================================================================*/
+/* 篡改标记样式 */
+.tamper-marker {
+    pointer-events: none;
+    animation: pulseAlert 1.5s infinite;
+}
+
+@keyframes pulseAlert {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* 文本篡改高亮 */
+.token.tamper {
+    background: rgba(255, 107, 107, 0.3);
+    padding: 2px 4px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.token.tamper::after {
+    content: "⚠";
+    font-size: 0.8em;
+    margin-left: 2px;
+}
+
+/* 类型分析条样式 */
+.type-bar {
+    margin: 1rem 0;
+}
+
+.bar-container {
+    height: 28px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 14px;
+    background: var(--primary-color);
+    transition: width 0.5s ease;
+}
+
+.bar-value {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dark);
+    font-weight: 500;
+}
