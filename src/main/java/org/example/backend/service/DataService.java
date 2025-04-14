@@ -13,11 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.nio.file.FileSystem;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -58,6 +53,6 @@ public class DataService implements IDataService {
             e.printStackTrace();
             throw new Exception("上传失败", e);
         }
-        return new AnalysisResponse(new JSONObject(), false);
+        return new AnalysisResponse(JSONObject.parseObject("{\"message\":\"上传失败\"}"), false);
     }
 }

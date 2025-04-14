@@ -151,13 +151,15 @@ async function analyzeContent() {
             throw new Error(`HTTP错误: ${response.status}`);
         }
         const result = await response.json();
-
+        if (!result.status) {
+            throw new Error(`服务器错误: ${result.message}`);
+        }
         const reader = new FileReader();
         reader.onload = (e) => {
             const analysisData = {
                 text: text,
                 image: e.target.result, // 直接存储为 Base64
-                result: result // 使用服务器返回的结果
+                result: result.analyResult // 使用服务器返回的结果
             };
             sessionStorage.setItem('analysisData', JSON.stringify(analysisData));
             window.location.href = 'analysis.html';

@@ -57,8 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = JSON.parse(rawData);
         if (!validateDataStructure(data)) throw new Error('无效的数据格式');
 
-        console.log('分析数据:', data);
-        
+
         return data;
     }
 
@@ -81,11 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function initDataVisualization(result) {
-        renderRealFakeAnalysis(result.logits_real_fake);
-        renderMulticlsBars(result.logits_multicls);
-        renderTamperOverlay(result.output_coord);
-        highlightTextTamper(result.logits_tok, result.original_text);
-        updateEvidenceDisplay(result);
+        renderRealFakeAnalysis(result.logits_real_fake[0]);
+        renderMulticlsBars(result.logits_multicls[0]);
+        // renderTamperOverlay(result.output_coord);
+        // highlightTextTamper(result.logits_tok, result.text);
+        // updateEvidenceDisplay(result);
     }
 
     // ======================
