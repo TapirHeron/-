@@ -22,7 +22,7 @@ public class DataController {
         System.out.println("userTransData: " + image + "text: " + text);
         String imagePath = storeFile(image);
         UserTransData userTransData = new UserTransData(UserController.getCurrentUser().getUserId(), imagePath, text);
-        return dataService.saveAndAnalysis(userTransData, image);
+        return dataService.saveAndAnalysis(userTransData);
     }
 
     private String storeFile(@NotNull(message = "图像不能为空") MultipartFile file) {
