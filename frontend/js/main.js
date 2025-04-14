@@ -154,57 +154,47 @@ async function analyzeContent() {
 
         const reader = new FileReader();
         reader.onload = (e) => {
-        const analysisData = {
-            text: text,
-            image: e.target.result, // 直接存储为 Base64
-            result: result // 使用服务器返回的结果
-        };
-        sessionStorage.setItem('analysisData', JSON.stringify(analysisData));
-        window.location.href = 'analysis.html';
+            const analysisData = {
+                text: text,
+                image: e.target.result, // 直接存储为 Base64
+                result: result // 使用服务器返回的结果
+            };
+            sessionStorage.setItem('analysisData', JSON.stringify(analysisData));
+            window.location.href = 'analysis.html';
         };
         reader.readAsDataURL(file); // 读取为 Base64
     } catch (error) {
         showError(`分析失败: ${error.message}`);
-    } finally {
-        btn.disabled = false;
-        btn.querySelector('.wave-loader').style.display = 'none';
-
-        //=====测试数据===================
-        // 创建测试数据
-        const mockResult = {
-            logits_real_fake: [2.1, -1.8],          // 示例真实/伪造 logits（Softmax前）
-            logits_multicls: [1.2, -0.5, 0.8, -0.3],// [FS, FA, TS, TA] 四维 logits
-            output_coord: [[0.1, 0.1, 0.3, 0.3], [0.6, 0.5, 0.8, 0.7]], // 定位坐标（示例坐标）
-            logits_tok: [0.1, 0.9, 0.2, 0.85, 0.4, 0.45, 0.12, 0.95], // 示例token篡改概率
-            original_text: "这是一段测试文本，包含正常和篡改内容" // 原始文本
-        };
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-        const analysisData = {
-            text: text,
-            image: e.target.result, // 直接存储为 Base64
-            result: mockResult // 使用模拟结果
-        };
-        sessionStorage.setItem('analysisData', JSON.stringify(analysisData));
-        window.location.href = 'analysis.html';
-        };
-        reader.readAsDataURL(file); // 读取为 Base64
-        // //=================================
+        // } finally {
+        //     btn.disabled = false;
+        //     btn.querySelector('.wave-loader').style.display = 'none';
+        //     const reader = new FileReader();
+        //     reader.onload = (e) => {
+        //     const analysisData = {
+        //         text: text,
+        //         image: e.target.result, // 直接存储为 Base64
+        //         result: result
+        //     };
+        //     sessionStorage.setItem('analysisData', JSON.stringify(analysisData));
+        //     window.location.href = 'analysis.html';
+        //     };
+        //     reader.readAsDataURL(file); // 读取为 Base64
+        //     // //=================================
+        // }
     }
-}
 
 
 // 错误提示
-function showError(message) {
-    const errorEl = document.getElementById('errorMessage');
-    errorEl.textContent = message;
-    errorEl.style.display = 'block';
-}
+    function showError(message) {
+        const errorEl = document.getElementById('errorMessage');
+        errorEl.textContent = message;
+        errorEl.style.display = 'block';
+    }
 
-function clearError() {
-    const errorEl = document.getElementById('errorMessage');
-    errorEl.style.display = 'none';
-    errorEl.textContent = '';
+    function clearError() {
+        const errorEl = document.getElementById('errorMessage');
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
+    }
 }
     
