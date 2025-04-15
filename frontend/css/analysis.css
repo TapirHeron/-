@@ -205,6 +205,29 @@ body {
     animation: pulseAlert 1.5s infinite;
 }
 
+/* 图像篡改覆盖层样式 */
+.tamper-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.tamper-box {
+    position: absolute;
+    border: 2px solid var(--danger-color);
+    background-color: rgba(255, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+/* 文本篡改高亮样式 */
+.highlighted-text span {
+    padding: 2px;
+    border-radius: 2px;
+}
+
 @keyframes pulseAlert {
     0% { opacity: 0.6; }
     50% { opacity: 1; }

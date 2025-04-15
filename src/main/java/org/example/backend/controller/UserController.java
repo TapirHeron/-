@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private IUserService userService;
-    private static User curentUser;  //=  new User(1,"小王", "1948710271@qq.com", "$2a$10$MkRdn53kvAjPRZMab5QrlucAuwjsksGrNOWrhbb1L/NB0LAsiUDBO");
+    private static User curentUser;  // =  new User(1,"小王", "1948710271@qq.com", "$2a$10$MkRdn53kvAjPRZMab5QrlucAuwjsksGrNOWrhbb1L/NB0LAsiUDBO");
 
     public static User getCurrentUser() {
         return curentUser;

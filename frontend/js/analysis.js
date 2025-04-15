@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', depth => {
     // ======================
     // 初始化配置
     // ======================
@@ -82,14 +82,73 @@ document.addEventListener('DOMContentLoaded', () => {
     function initDataVisualization(result) {
         renderRealFakeAnalysis(result.logits_real_fake[0]);
         renderMulticlsBars(result.logits_multicls[0]);
-        // renderTamperOverlay(result.output_coord);
-        // highlightTextTamper(result.logits_tok, result.text);
-        // updateEvidenceDisplay(result);
+        renderTamperOverlay(result.output_coord);
+        highlightTextTamper(result.logits_tok[0], result.text);
     }
 
     // ======================
     // 可视化模块
     // ======================
+    function renderTamperOverlay(coordinates) {
+        console.log(coordinates);
+        if (!coordinates || !elements.tamperOverlay) {
+            return;
+        }
+
+        // 清空之前的覆盖层
+        elements.tamperOverlay.innerHTML = '';
+
+        // 创建覆盖层
+        const overlay = document.createElement('div');
+        overlay.className = 'tamper-overlay';
+
+        // 根据坐标绘制矩形框
+        coordinates.forEach(coord => {
+            const box = document.createElement('div');
+            box.className = 'tamper-box';
+            box.style.left = `${coord.x}%`;
+            box.style.top = `${coord.y}%`;
+            box.style.width = `${coord.width}%`;
+            box.style.height = `${coord.height}%`;
+            overlay.appendChild(box);
+        });
+
+        // 将覆盖层添加到图像容器中
+        elements.tamperOverlay.appendChild(overlay);
+    }
+    function highlightTextTamper(logits, text) {
+        if (!logits || !text || !elements.textTamper) {
+            return;
+        }
+        // 将文本分割为字符数组
+        const chars = Array.from(text);
+        const softmaxLogits = calculateSoftmax(logits);
+        // 创建高亮文本的HTML
+        const highlightedText = chars.map((char, index) => {
+            const confidence = softmaxLogits[index];
+            const color = confidence > 0.5 ? CSS_VARS.danger : CSS_VARS.success;
+            return `<span style="background-color: ${color};">${char}</span>`;
+        }).join('');
+
+        // 更新文本容器内容
+        elements.textTamper.innerHTML = highlightedText;
+    }
+    function getArrayDepth(arr) {
+        // 如果输入不是数组，返回 0
+        if (!Array.isArray(arr)) {
+            return 0;
+        }
+
+        // 如果数组为空，返回 1（空数组的深度为 1）
+        if (arr.length === 0) {
+            return 1;
+        }
+
+        // 递归计算嵌套深度
+        return 1 + Math.max(...arr.map(item => getArrayDepth(item)));
+    }
+
+
     function renderRealFakeAnalysis(logits) {
         const softmax = calculateSoftmax(logits);
         const confidence = Math.round(softmax[0] * 100);
@@ -131,10 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function calculateSoftmax(logits) {
-        const exp = logits.map(x => Math.exp(x));
+        const maxLogit = Math.max(...logits); // 找到最大值
+        const exp = logits.map(x => Math.exp(x - maxLogit)); // 减去最大值，避免溢出
         const sum = exp.reduce((a, b) => a + b);
         return exp.map(x => x / sum);
     }
+
 
     function validateDataStructure(data) {
         const required = ['text', 'image', 'result'];
