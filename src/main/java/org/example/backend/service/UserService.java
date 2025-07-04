@@ -3,16 +3,13 @@ package org.example.backend.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jakarta.persistence.EntityNotFoundException;
 import org.example.backend.pojo.Dto.UserDto;
 import org.example.backend.pojo.User;
 import org.example.backend.repository.IUserRepository;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Optional;
